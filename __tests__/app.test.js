@@ -9,53 +9,86 @@ const client = require('../lib/client');
 describe('app routes', () => {
   describe('routes', () => {
     let token;
-  
+
     beforeAll(async done => {
       execSync('npm run setup-db');
-  
+
       client.connect();
-  
+
       const signInData = await fakeRequest(app)
         .post('/auth/signup')
         .send({
-          email: 'jon@user.com',
-          password: '1234'
+          email: 'jeff@greendale.edu',
+          password: '1234',
+          name: 'Jeff'
         });
-      
+
       token = signInData.body.token; // eslint-disable-line
-  
+
       return done();
     });
-  
+
     afterAll(done => {
       return client.end(done);
     });
 
-    test('returns animals', async() => {
+
+    test('returns plans', async () => {
 
       const expectation = [
         {
           'id': 1,
-          'name': 'bessie',
-          'coolfactor': 3,
-          'owner_id': 1
+          'todo': 'change Neflix password',
+          'completed': false,
+          'owner_id': 1,
         },
         {
           'id': 2,
-          'name': 'jumpy',
-          'coolfactor': 4,
-          'owner_id': 1
+          'todo': 'rearrange Netflix queue for Jeff',
+          'completed': false,
+          'owner_id': 2,
         },
         {
           'id': 3,
-          'name': 'spot',
-          'coolfactor': 10,
-          'owner_id': 1
+          'todo': 'buy new shirt from Banana Republic',
+          'completed': false,
+          'owner_id': 1,
+        },
+        {
+          'id': 4,
+          'todo': 'construct robotic gauntlet from foil and foam',
+          'completed': false,
+          'owner_id': 2,
+        },
+        {
+          'id': 5,
+          'todo': 'look at self in mirror',
+          'completed': false,
+          'owner_id': 1,
+        },
+        {
+          'id': 6,
+          'todo': 'watch Korean remake of The Cape',
+          'completed': false,
+          'owner_id': 2,
+        },
+        {
+          'id': 7,
+          'todo': 'have chest waxed',
+          'completed': false,
+          'owner_id': 1,
+        },
+        {
+          'id': 8,
+          'todo': 'buy used Judge Dredd costume',
+          'completed': false,
+          'owner_id': 2,
         }
       ];
 
       const data = await fakeRequest(app)
-        .get('/animals')
+        .get('/plans')
+        //
         .expect('Content-Type', /json/)
         .expect(200);
 
