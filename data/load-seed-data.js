@@ -1,5 +1,5 @@
 const client = require('../lib/client');
-const planets = require('./planets.js');
+const { planets } = require('./planets.js');
 const { typesData } = require('./types.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
