@@ -15,20 +15,14 @@ async function run() {
       CREATE TABLE users (
         id SERIAL PRIMARY KEY NOT NULL,
         email VARCHAR(256) NOT NULL,
-        hash VARCHAR(512) NOT NULL
-      );     
-      CREATE TABLE types (
-        id SERIAL PRIMARY KEY NOT NULL,
+        hash VARCHAR(512) NOT NULL,
         name VARCHAR(512) NOT NULL
-      );    
-      CREATE TABLE planets (
+      );       
+      CREATE TABLE plans (
         id SERIAL PRIMARY KEY NOT NULL,
-        planet VARCHAR(512) NOT NULL,
-        diameter INTEGER NOT NULL,
-        gravity VARCHAR(512) NOT NULL,
-        magnetic_field_strong BOOLEAN NOT NULL,
-        owner_id INTEGER NOT NULL REFERENCES users(id),
-        type_id INTEGER NOT NULL REFERENCES types(id)
+        todo VARCHAR(512) NOT NULL,
+        completed BOOLEAN NOT NULL,
+        owner_id INTEGER NOT NULL REFERENCES users(id)
       );
     `);
 

@@ -1,6 +1,5 @@
 const client = require('../lib/client');
-const { planets } = require('./planets.js');
-const { typesData } = require('./types.js');
+const { plans } = require('./plans.js');
 const usersData = require('./users.js');
 const { getEmoji } = require('../lib/emoji.js');
 
@@ -14,40 +13,24 @@ async function run() {
     const users = await Promise.all(
       usersData.map(user => {
         return client.query(`
-                      INSERT INTO users (email, hash)
-                      VALUES ($1, $2)
+                      INSERT INTO users (email, hash, name)
+                      VALUES ($1, $2, $3)
                       RETURNING *;
                   `,
-          [user.email, user.hash]);
+          [user.email, user.hash, user.name]);
       })
     );
 
     const user = users[0].rows[0];
 
 
-    console.log(typesData);
-    const types = await Promise.all(
-      typesData.map(type => {
-        return client.query(`
-                      INSERT INTO types (name)
-                      VALUES ($1)
-                      RETURNING *;
-                  `,
-          [type.name]);
-      })
-    )
-
-
-    const type = types[0].rows[0];
-
-
     await Promise.all(
-      planets.map(planet => {
+      plans.map(plan => {
         return client.query(`
-                    INSERT INTO planets (planet, diameter, gravity, magnetic_field_strong, owner_id, type_id)
-                    VALUES ($1, $2, $3, $4, $5, $6);
+                    INSERT INTO plans (todo, completed, owner_id)
+                    VALUES ($1, $2, $3);
                 `,
-          [planet.planet, planet.diameter, planet.gravity, planet.magnetic_field_strong, planet.owner_id, planet.type_id]);
+          [plan.todo, plan.completed, plan.owner_id]);
       })
     );
 
