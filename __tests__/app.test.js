@@ -74,34 +74,35 @@ describe('app routes', () => {
     });
 
 
-    // test('updates existing plan object', async () => {
+    test('updates existing plan object', async () => {
 
-    //   const newPlan = [
-    //     {
-    //       'id': 3,
-    //       'todo': 'eat breakfast',
-    //       'completed': false,
-    //       'owner_id': 2,
-    //     },
-    //   ];
+      const newPlan = {
+        id: 3,
+        todo: 'eat breakfast',
+        completed: true,
+        owner_id: 2,
+      };
 
-    //   const expectedPlan = {
-    //     ...newPlan,
-    //   }
+      const expectedPlan = {
+        ...newPlan,
+      }
 
-    //   await fakeRequest(app)
-    //     .put('/planets/3')
-    //     .send(newPlan)
-    //     .expect('Content-Type', /json/)
-    //     .expect(500);
+      const updatedNewPlan = await fakeRequest(app)
+        .put('/api/plans/3')
+        .set('Authorization', token)
+        .send(newPlan)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      console.log(updatedNewPlan.body);
 
-    //   const updatedPlan = await fakeRequest(app)
-    //     .get('/api/plans/3')
-    //     .expect('Content-Type', /json/)
-    //     .expect(500);
+      const updatedPlan = await fakeRequest(app)
+        .get('/api/plans')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
 
-    //   expect(updatedPlan.body).toEqual(expectedPlan);
-    // });
+      expect(updatedPlan.body).toEqual([expectedPlan]);
+    });
 
 
   });
