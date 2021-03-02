@@ -85,6 +85,7 @@ describe('app routes', () => {
 
       const expectedPlan = {
         ...newPlan,
+        id: 3,
       }
 
       const updatedNewPlan = await fakeRequest(app)
