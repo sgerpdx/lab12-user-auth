@@ -27,7 +27,7 @@ const plans = [
         'id': 5,
         'todo': 'look at self in mirror',
         'completed': false,
-        'owner_id': 1,
+        'owner_id': 3,
     },
     {
         'id': 6,
