@@ -77,7 +77,7 @@ describe('app routes', () => {
     test('updates existing plan object', async () => {
 
       const newPlan = {
-        id: 3,
+        id: expect.any(Number),
         todo: 'eat breakfast',
         completed: true,
         owner_id: 2,
@@ -85,7 +85,6 @@ describe('app routes', () => {
 
       const expectedPlan = {
         ...newPlan,
-        id: 3,
       }
 
       const updatedNewPlan = await fakeRequest(app)
